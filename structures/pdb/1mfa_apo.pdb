@@ -1,4 +1,4 @@
-REMARK   1 CREATED WITH MDTraj 1.9.4, 2020-09-28
+REMARK   1 CREATED WITH MDTraj 1.9.4, 2020-10-05
 CRYST1   53.100   61.000   74.800  90.00  90.00  90.00 P 1           1 
 MODEL        0
 ATOM      1  N   GLN A   1      -7.096   7.402  12.431  1.00  0.00           N  
