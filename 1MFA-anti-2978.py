@@ -1,6 +1,3 @@
-from simtk.unit import *
-from simtk.openmm import *
-from simtk.openmm.app import *
 
 import pubchempy as pcp
 import MDAnalysis as mda
@@ -21,6 +18,10 @@ from Bio.PDB import PDBList
 from pdbfixer import PDBFixer
 
 import matplotlib.pyplot as plt
+
+from simtk.unit import *
+from simtk.openmm import *
+from simtk.openmm.app import *
 
 ###
 # Globals
@@ -179,6 +180,13 @@ mutations_B = [f'{r.resname}-{r.resid}-GLY' for r in wtgroup_B.residues]
 fixer = PDBFixer('selex.00.pdb')
 fixer.applyMutations(mutations_A, 'A')
 fixer.applyMutations(mutations_B, 'B')
+fixer.findMissingResidues()
+fixer.findNonstandardResidues()
+fixer.replaceNonstandardResidues()
+fixer.removeHeterogens(True)
+fixer.findMissingAtoms()
+fixer.addMissingAtoms()
+fixer.addMissingHydrogens(7.0)
 
 with open('selex.01.pdb', 'w+') as outfile:
     PDBFile.writeFile(fixer.topology, fixer.positions, outfile)
