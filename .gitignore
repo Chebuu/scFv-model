@@ -1,13 +1,1 @@
-*.*
-
-!README.md
-!SELEX.00.pdb
-!1MFA-2978.pdb
-!1mfa-HOLO.00.pdb
-!1MFA-anti-2978.ipynb
-
-!structures/**/*
-!offxml/**/*
-!img/**/*
-
-!.gitignore
+Note.txt
