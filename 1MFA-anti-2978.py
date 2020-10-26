@@ -39,12 +39,17 @@ MOL_DIR = f'{ROOT_DIR}/mol'
 
 SEED_PDB = '1mfa'
 TARGET_CID = '2978'
-SPIKE_CIDS = []
+SPIKE_CIDS = [
+    5315659, 6449999, # G, GA
+    644019, 160570,   # D, DA
+    30219, 3084339,   # C, CA
+    2543, 162113,     # N, E
+    2977, 98523, ]    # d8T, d9TA
 
 SOLVENT_BOX_RHO = 1000
 SOLVENT_BOX_POS = [0.,0.,0.]
 SOLVENT_BOX_DIM = [40.,40.,40.]
-SOLVENT_BOX_CMD = 'inside box' + ' '.join([
+SOLVENT_BOX_CMD = 'inside box ' + ' '.join([
     ' '.join([str(x) for x in SOLVENT_BOX_POS]),
     ' '.join([str(x) for x in SOLVENT_BOX_DIM])])
 
