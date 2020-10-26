@@ -1,6 +1,9 @@
 
+
 import pubchempy as pcp
+import mdapackmol as pkm
 import MDAnalysis as mda
+
 
 from rdkit import Chem
 from rdkit.Chem import AllChem, rdFMCS, PandasTools
@@ -37,6 +40,13 @@ MOL_DIR = f'{ROOT_DIR}/mol'
 SEED_PDB = '1mfa'
 TARGET_CID = '2978'
 SPIKE_CIDS = []
+
+SOLVENT_BOX_RHO = 1000
+SOLVENT_BOX_POS = [0.,0.,0.]
+SOLVENT_BOX_DIM = [40.,40.,40.]
+SOLVENT_BOX_CMD = 'inside box' + ' '.join([
+    ' '.join([str(x) for x in SOLVENT_BOX_POS]),
+    ' '.join([str(x) for x in SOLVENT_BOX_DIM])])
 
 STEP_SIZE = 1000
 TOTAL_STEPS = 10000
@@ -167,9 +177,18 @@ with open('selex.00.pdb', 'w') as outfile:
     PDBFile.writeFile(
         simulation.topology, state.getPositions(), outfile)
 
-""" Construct mutation strings by chain for PDBFixer """
-uni_selex00 = mda.Universe('selex.00.pdb')
+""" Model components """
+water   = mda.Universe(f'{PDB_DIR}/water.pdb').select_atoms('resname *')
+ligand  = mda.Universe('selex.00.pdb').select_atoms('resname UNL')
+protein = mda.Universe('selex.00.pdb').select_atoms('protein')
 
+""" Assemble and solvate model components """
+num,rho = pkm.tools.molecules_for_target_density(
+    {protein:1, ligand:1}, water, SOLVENT_BOX_RHO, SOLVENT_BOX_DIM)
+uni_selex00 = pkm.packmol([
+    protein, ligand, pkm.PackmolStructure(water, num, [SOLVENT_BOX_CMD])])
+
+""" Construct mutation strings by chain for PDBFixer """
 wtgroup_A = uni_selex00.select_atoms('segid A and (around 3.0 resname UNL)')
 mutations_A = [f'{r.resname}-{r.resid}-GLY' for r in wtgroup_A.residues]
 
