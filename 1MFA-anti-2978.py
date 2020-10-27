@@ -1,9 +1,6 @@
-
-
 import pubchempy as pcp
 import mdapackmol as pkm
 import MDAnalysis as mda
-
 
 from rdkit import Chem
 from rdkit.Chem import AllChem, rdFMCS, PandasTools
@@ -182,16 +179,22 @@ with open('selex.00.pdb', 'w') as outfile:
     PDBFile.writeFile(
         simulation.topology, state.getPositions(), outfile)
 
+###
+# Mutant
+###
 """ Model components """
 water   = mda.Universe(f'{PDB_DIR}/water.pdb').select_atoms('resname *')
 ligand  = mda.Universe('selex.00.pdb').select_atoms('resname UNL')
 protein = mda.Universe('selex.00.pdb').select_atoms('protein')
 
-""" Assemble and solvate model components """
+""" Crteate the solvent box """
 num,rho = pkm.tools.molecules_for_target_density(
     {protein:1, ligand:1}, water, SOLVENT_BOX_RHO, SOLVENT_BOX_DIM)
-uni_selex00 = pkm.packmol([
-    protein, ligand, pkm.PackmolStructure(water, num, [SOLVENT_BOX_CMD])])
+solvent = pkm.packmol([
+    pkm.PackmolStructure(water, num, [SOLVENT_BOX_CMD])])
+
+""" Merge components and solvent box """
+uni_selex00 = mda.Merge(ligand, protein, solvent.atoms)
 
 """ Construct mutation strings by chain for PDBFixer """
 wtgroup_A = uni_selex00.select_atoms('segid A and (around 3.0 resname UNL)')
