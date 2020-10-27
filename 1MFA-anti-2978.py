@@ -1,6 +1,8 @@
 import pubchempy as pcp
 import mdapackmol as pkm
+
 import MDAnalysis as mda
+from MDAnalysis import transformations as mtx
 
 from rdkit import Chem
 from rdkit.Chem import AllChem, rdFMCS, PandasTools
@@ -45,7 +47,7 @@ SPIKE_CIDS = [
 
 SOLVENT_BOX_RHO = 1000
 SOLVENT_BOX_POS = [0.,0.,0.]
-SOLVENT_BOX_DIM = [40.,40.,40.]
+SOLVENT_BOX_DIM = [55.,55.,55.]
 SOLVENT_BOX_CMD = 'inside box ' + ' '.join([
     ' '.join([str(x) for x in SOLVENT_BOX_POS]),
     ' '.join([str(x) for x in SOLVENT_BOX_DIM])])
@@ -193,8 +195,17 @@ num,rho = pkm.tools.molecules_for_target_density(
 solvent = pkm.packmol([
     pkm.PackmolStructure(water, num, [SOLVENT_BOX_CMD])])
 
-""" Merge components and solvent box """
-uni_selex00 = mda.Merge(ligand, protein, solvent.atoms)
+""" Center components """
+complejo = mda.Merge(ligand, protein)
+protein = complejo.select_atoms('protein')
+ligand = complejo.select_atoms('resname UNL')
+
+point = [d/2 for d in SOLVENT_BOX_DIM]
+complejo.trajectory.add_transformations(
+    mtx.center_in_box(complejo.atoms, point=point, wrap=False))
+
+""" Dissolve complex """
+uni_selex00 = mda.Merge(complejo.atoms, solvent.atoms)
 
 """ Construct mutation strings by chain for PDBFixer """
 wtgroup_A = uni_selex00.select_atoms('segid A and (around 3.0 resname UNL)')

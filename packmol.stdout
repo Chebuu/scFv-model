@@ -26,12 +26,12 @@
   Warning: Type of residue numbering not set for structure            1
   Residue numbering set for structure            1 :           0
   Swap chains of molecules of structure            1 : F
-  Number of molecules of type            1 :          747
-  Total number of atoms:         2241
-  Total number of molecules:          747
+  Number of molecules of type            1 :         2787
+  Total number of atoms:         8361
+  Total number of molecules:         2787
   Number of fixed molecules:            0
-  Number of free molecules:          747
-  Number of variables:         4482
+  Number of free molecules:         2787
+  Number of variables:        16722
   Total number of fixed atoms:            0
   Maximum internal distance of type            1 :    1.6330000000000000     
   All atoms must be within these coordinates: 
@@ -57,8 +57,8 @@
   Packing:|0                                                             100%|
           |***********************************
 
-  Restraint-only function value:    9.2694518309794863E-003
-  Maximum violation of the restraints:    3.6929618715921294E-003
+  Restraint-only function value:    1.5058524901791037E-003
+  Maximum violation of the restraints:    8.3136132942916751E-004
 
 --------------------------------------------------------------------------------
 
@@ -78,13 +78,13 @@
   Molecules of type:            1
   Adjusting random positions to fit the constraints. 
   Packing:|0                                                             100%|
-          |*******
-  Restraint-only function value:    1.3476839772004277E-006
-  Maximum violation of the restraints:    1.3476839772004277E-006
+          |
+  Restraint-only function value:    6.4493071075232070E-003
+  Maximum violation of the restraints:    3.6346856439083948E-003
 
 ################################################################################
 
-  Objective function at initial point:    4642.1553079638788     
+  Objective function at initial point:    32563.986731736702     
 
 ################################################################################
 
@@ -99,20 +99,21 @@
   Scaling radii by:    1.1000000000000001     
 
   Packing:|0                                                             100%|
-          |******************************************
+          |******************************************************************|
+          |**************
 
-  Function value from last GENCAN loop: f = .10831E-01
-  Best function value before: f = .46422E+04
+  Function value from last GENCAN loop: f = .21135E-01
+  Best function value before: f = .32564E+05
   Improvement from best function value:    99.99 %
   Improvement from last loop:    99.99 %
   Maximum violation of target distance:     0.000000
-  Maximum violation of the constraints: .28418E-02
+  Maximum violation of the constraints: .99587E-02
   Current structure written to file: output.pdb
 --------------------------------------------------------------------------------
   Packing solved for molecules of type           1
-  Objective function value:    1.0830581130451235E-002
+  Objective function value:    2.1134583511467582E-002
   Maximum violation of target distance:    0.0000000000000000     
-  Max. constraint violation:    2.8418376527794015E-003
+  Max. constraint violation:    9.9586534385858860E-003
 --------------------------------------------------------------------------------
 
 ################################################################################
@@ -129,9 +130,9 @@
 ################################################################################
 
                                  Success! 
-              Final objective function value: .87827E+00
+              Final objective function value: .36670E+01
               Maximum violation of target distance:   0.000000
-              Maximum violation of the constraints: .28418E-02
+              Maximum violation of the constraints: .99587E-02
 
 --------------------------------------------------------------------------------
 
@@ -144,7 +145,7 @@
 
 ################################################################################
 
-   Running time:   0.500943959      seconds. 
+   Running time:    1.16462100      seconds. 
 
 --------------------------------------------------------------------------------
 
